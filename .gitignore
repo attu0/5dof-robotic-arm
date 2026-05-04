@@ -1,0 +1,39 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# CAD tool scratch files
+*.bak
+*.lck
+*.swp
+*~
+
+# Fusion 360 / Inventor recovery
+Recovery/
+
+# FreeCAD backups
+*.FCBak
+
+# SolidWorks backups
+*.sldprt.bak
+*.sldasm.bak
+*.slddrw.bak
+
+# Large binary exports (keep STL/3MF, ignore STEP/IGES if desired)
+# Uncomment if you don't want to track STEP files:
+# *.step
+# *.stp
+# *.iges
+# *.igs
+
+# ROS build artifacts
+ros/*/build/
+ros/*/install/
+ros/*/log/
+ros/**/__pycache__/
+ros/**/*.pyc
+
+# Editor files
+.vscode/
+.idea/
+*.sublime-workspace

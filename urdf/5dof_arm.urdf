@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<!--
+  5DOF Robotic Arm - URDF Description
+
+  Joint layout (all revolute):
+    base_link  =[base_rotation]=  link1
+    link1      =[shoulder]=====  link2
+    link2      =[elbow]========  link3
+    link3      =[wrist_pitch]==  link4
+    link4      =[wrist_roll]===  link5
+    link5      =[ee_fixed]====  end_effector
+-->
+<robot name="5dof_arm">
+
+  <!-- ===== MATERIALS ===== -->
+  <material name="grey">
+    <color rgba="0.5 0.5 0.5 1.0"/>
+  </material>
+  <material name="dark_grey">
+    <color rgba="0.3 0.3 0.3 1.0"/>
+  </material>
+  <material name="white">
+    <color rgba="0.9 0.9 0.9 1.0"/>
+  </material>
+
+  <!-- ===== LINKS ===== -->
+
+  <!-- Base link (fixed to world/table) -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.05" length="0.04"/>
+      </geometry>
+      <origin xyz="0 0 0.02" rpy="0 0 0"/>
+      <material name="dark_grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.05" length="0.04"/>
+      </geometry>
+      <origin xyz="0 0 0.02" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.5"/>
+      <origin xyz="0 0 0.02" rpy="0 0 0"/>
+      <inertia ixx="0.0006" ixy="0" ixz="0"
+               iyy="0.0006" iyz="0"
+               izz="0.0009"/>
+    </inertial>
+  </link>
+
+  <!-- Link 1 – lower arm / first shoulder segment -->
+  <link name="link1">
+    <visual>
+      <geometry>
+        <box size="0.04 0.04 0.12"/>
+      </geometry>
+      <origin xyz="0 0 0.06" rpy="0 0 0"/>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.04 0.04 0.12"/>
+      </geometry>
+      <origin xyz="0 0 0.06" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.3"/>
+      <origin xyz="0 0 0.06" rpy="0 0 0"/>
+      <inertia ixx="0.0004" ixy="0" ixz="0"
+               iyy="0.0004" iyz="0"
+               izz="0.00008"/>
+    </inertial>
+  </link>
+
+  <!-- Link 2 – upper arm -->
+  <link name="link2">
+    <visual>
+      <geometry>
+        <box size="0.04 0.04 0.14"/>
+      </geometry>
+      <origin xyz="0 0 0.07" rpy="0 0 0"/>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.04 0.04 0.14"/>
+      </geometry>
+      <origin xyz="0 0 0.07" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.25"/>
+      <origin xyz="0 0 0.07" rpy="0 0 0"/>
+      <inertia ixx="0.0005" ixy="0" ixz="0"
+               iyy="0.0005" iyz="0"
+               izz="0.00006"/>
+    </inertial>
+  </link>
+
+  <!-- Link 3 – forearm -->
+  <link name="link3">
+    <visual>
+      <geometry>
+        <box size="0.035 0.035 0.12"/>
+      </geometry>
+      <origin xyz="0 0 0.06" rpy="0 0 0"/>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.035 0.035 0.12"/>
+      </geometry>
+      <origin xyz="0 0 0.06" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.2"/>
+      <origin xyz="0 0 0.06" rpy="0 0 0"/>
+      <inertia ixx="0.0003" ixy="0" ixz="0"
+               iyy="0.0003" iyz="0"
+               izz="0.00005"/>
+    </inertial>
+  </link>
+
+  <!-- Link 4 – wrist -->
+  <link name="link4">
+    <visual>
+      <geometry>
+        <cylinder radius="0.02" length="0.06"/>
+      </geometry>
+      <origin xyz="0 0 0.03" rpy="0 0 0"/>
+      <material name="dark_grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.02" length="0.06"/>
+      </geometry>
+      <origin xyz="0 0 0.03" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <origin xyz="0 0 0.03" rpy="0 0 0"/>
+      <inertia ixx="0.00008" ixy="0" ixz="0"
+               iyy="0.00008" iyz="0"
+               izz="0.00002"/>
+    </inertial>
+  </link>
+
+  <!-- Link 5 – end-effector mount -->
+  <link name="link5">
+    <visual>
+      <geometry>
+        <box size="0.04 0.02 0.04"/>
+      </geometry>
+      <origin xyz="0 0 0.02" rpy="0 0 0"/>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.04 0.02 0.04"/>
+      </geometry>
+      <origin xyz="0 0 0.02" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.08"/>
+      <origin xyz="0 0 0.02" rpy="0 0 0"/>
+      <inertia ixx="0.00003" ixy="0" ixz="0"
+               iyy="0.00003" iyz="0"
+               izz="0.00002"/>
+    </inertial>
+  </link>
+
+  <!-- End effector (TCP frame – massless reference point) -->
+  <link name="end_effector"/>
+
+  <!-- ===== JOINTS ===== -->
+
+  <!-- Joint 1: base rotation (yaw about Z) -->
+  <joint name="base_rotation" type="revolute">
+    <parent link="base_link"/>
+    <child link="link1"/>
+    <origin xyz="0 0 0.04" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.1416" upper="3.1416" effort="10.0" velocity="1.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+
+  <!-- Joint 2: shoulder pitch (rotation about Y) -->
+  <joint name="shoulder" type="revolute">
+    <parent link="link1"/>
+    <child link="link2"/>
+    <origin xyz="0 0 0.12" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.5708" upper="1.5708" effort="10.0" velocity="1.0"/>
+    <dynamics damping="0.5" friction="0.1"/>
+  </joint>
+
+  <!-- Joint 3: elbow pitch (rotation about Y) -->
+  <joint name="elbow" type="revolute">
+    <parent link="link2"/>
+    <child link="link3"/>
+    <origin xyz="0 0 0.14" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-2.3562" upper="2.3562" effort="8.0" velocity="1.2"/>
+    <dynamics damping="0.4" friction="0.1"/>
+  </joint>
+
+  <!-- Joint 4: wrist pitch (rotation about Y) -->
+  <joint name="wrist_pitch" type="revolute">
+    <parent link="link3"/>
+    <child link="link4"/>
+    <origin xyz="0 0 0.12" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.5708" upper="1.5708" effort="5.0" velocity="1.5"/>
+    <dynamics damping="0.3" friction="0.05"/>
+  </joint>
+
+  <!-- Joint 5: wrist roll (rotation about X) -->
+  <joint name="wrist_roll" type="revolute">
+    <parent link="link4"/>
+    <child link="link5"/>
+    <origin xyz="0 0 0.06" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-3.1416" upper="3.1416" effort="5.0" velocity="1.5"/>
+    <dynamics damping="0.3" friction="0.05"/>
+  </joint>
+
+  <!-- Fixed joint: end-effector TCP frame -->
+  <joint name="ee_fixed" type="fixed">
+    <parent link="link5"/>
+    <child link="end_effector"/>
+    <origin xyz="0 0 0.04" rpy="0 0 0"/>
+  </joint>
+
+</robot>
