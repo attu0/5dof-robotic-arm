@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
 
-    <xacro:include filename="$(find ros_bot)/description/robot_core.xacro" />
-    <xacro:include filename="$(find ros_bot)/description/gazebo_control.xacro" />
-    <xacro:include filename="$(find ros_bot)/description/ros2_control.xacro" />
+    <xacro:include filename="$(find robotic_arm)/description/robot_core.xacro" />
 
 </robot>
